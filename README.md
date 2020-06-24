@@ -15,18 +15,18 @@
 
 ### linux
 
-### nginx
-
 #### 常用操作命令
 
 #### vi/vim
 
 #### shell
 
+### nginx
+
 ### 数据库
 
 #### 关系型数据库 mysql
 
-#### 非关系型数据库r edis
+#### 非关系型数据库redis
 
 ...
