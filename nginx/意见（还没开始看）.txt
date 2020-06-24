@@ -1,0 +1,42 @@
+现在nginx 的安装，一般OPS 不会源码安装
+都会弄成 rpm 包
+然后 我们用的有tengine + 原生的nginx
+用法有一些差异
+我们QA 还用了openresty
+ Ubuntu是个人桌面 ，一般企业不用这个的
+我们都是centos 6.5
+现在有一些centeos 7
+其实吧 nginx 的缓存很少用
+现在都用varnish  之类的
+nginx 的缓存好像很不好用
+加权轮询法  这个轮询知道就可以了，但是一般不用
+这个weight 可能带来各种问题 这个太危险
+1、我们的后端服务的配置都是一样的
+2、每个机器上的代码都是一致的
+
+所以如果配置了weight 带来的问题就是 不同机器上的压力不均匀、数据库占用的链接不同。
+所以我们一般都是轮询，或者uid hash
+
+
+1、写的很全面，从安装、日志、启动、location配置、upstream 负载方式、流控 ab 都写了。这个很好
+2、一下也能看出来是从书本、网站上学来的。少了一些具体的例子
+3、工作中我们比较常用的 location 不同的配置，单纯转发、url转化、文件读取  等等这个可以再写一些
+4、location 里还有一种  @limit 这种方式，这个值得学习一下
+5、root \ alias 的区别
+6、rewrite 的使用场景、方法  可以写点
+7、nginx 的启动、reload、配置文件检查 也可以写点
+8、你写的文章中有 USR1 信号，应该还有 HUP  USR2 USR13 。用的不多 但是可以理解一下
+9、再有精力的话，可以看看lua，可以很完美的和nginx 结合 。我们的uid_check 就是用lua 写的
+
+
+当然这些其实都不是一个大厂QA 所要求的，这些一般公司会认为是OPS 应该会的
+
+对了关于流控 ，我给你一个文章:https://legolasng.github.io/2017/08/27/nginx-rate-limiting/
+这个是rewrite的 https://blog.csdn.net/brainkick/article/details/7475770
+这个人是nginx 的大神 openresty的作者 ，老阿里人 现在在美国 他的文章写的很好，也值得一读 http://blog.sina.com.cn/s/articlelist_1834459124_2_1.html
+你如果是认真的，我觉得现在几个重点
+1、后端的开发的技术 捡起来，不用多高深的 ：数据库、python、java
+2、考虑一下 怎么做一个平台出来。比如说 发布审批流 等等
+对了, 我们有一个 http://qa.corp.daling.com/myapp/default/index 这个,这个是python 的web.py 框架的,
+这个框架很少用了,但是可以入个门 http://gitlab.corp.daling.com/qa/qa_web
+看看这个功能能不能启发一些思路
